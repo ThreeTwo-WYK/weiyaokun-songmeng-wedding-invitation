@@ -1,0 +1,178 @@
+:root {
+  --ink: #fff8ea;
+  --ink-soft: rgba(255, 248, 234, 0.76);
+  --gold: #d9bd7d;
+  --gold-soft: rgba(217, 189, 125, 0.46);
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; min-height: 100%; margin: 0; }
+
+body {
+  overflow: hidden;
+  background: #160b0b;
+  color: var(--ink);
+  font-family: "Songti SC", "STSong", "Noto Serif SC", "Microsoft YaHei", serif;
+}
+
+.wedding-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 0%, rgba(122, 44, 36, 0.34), transparent 50%), #160b0b;
+}
+
+.invitation {
+  position: relative;
+  isolation: isolate;
+  width: min(100vw, 520px);
+  height: 100vh;
+  height: 100dvh;
+  min-height: 620px;
+  overflow: hidden;
+  background: #241313;
+  box-shadow: 0 0 70px rgba(0, 0, 0, 0.52);
+}
+
+.photo-stage, .background-photo, .photo-veil, .paper-grain, .ornamental-frame, .invitation-content {
+  position: absolute;
+  inset: 0;
+}
+
+.photo-stage { z-index: 0; background: #2a1716; }
+
+.background-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1);
+  filter: saturate(0.88) contrast(1.03);
+  transition: opacity 1.8s ease-in-out, transform 6.8s ease-out;
+}
+
+.background-photo.is-active { opacity: 1; transform: scale(1.045); z-index: 1; }
+
+.photo-veil {
+  z-index: 2;
+  background:
+    linear-gradient(to bottom, rgba(14, 7, 7, 0.62) 0%, rgba(14, 7, 7, 0.2) 25%, rgba(14, 7, 7, 0.28) 58%, rgba(14, 7, 7, 0.78) 100%),
+    radial-gradient(circle at 50% 44%, transparent 5%, rgba(28, 8, 8, 0.17) 55%, rgba(20, 5, 5, 0.58) 100%);
+}
+
+.paper-grain {
+  z-index: 3;
+  opacity: 0.12;
+  mix-blend-mode: soft-light;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.11) 0, rgba(255,255,255,.11) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.14) 0, rgba(0,0,0,.14) 1px, transparent 1px, transparent 5px);
+}
+
+.ornamental-frame {
+  z-index: 5;
+  pointer-events: none;
+  margin: 14px;
+  border: 1px solid var(--gold-soft);
+  box-shadow: inset 0 0 0 4px rgba(15, 5, 4, 0.13);
+}
+
+.corner { position: absolute; width: 28px; height: 28px; border-color: var(--gold); border-style: solid; }
+.corner-tl { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
+.corner-tr { top: 7px; right: 7px; border-width: 1px 1px 0 0; }
+.corner-bl { bottom: 7px; left: 7px; border-width: 0 0 1px 1px; }
+.corner-br { right: 7px; bottom: 7px; border-width: 0 1px 1px 0; }
+
+.invitation-content {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(30px, env(safe-area-inset-top)) 34px max(26px, env(safe-area-inset-bottom));
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.76);
+}
+
+.invitation-header, .couple-block, .date-block, .venue-block, .invitation-footer { position: relative; z-index: 1; }
+.invitation-header { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+
+.eyebrow {
+  margin: 0;
+  color: var(--gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 0.34em;
+}
+
+.seal {
+  width: 46px;
+  height: 46px;
+  margin-top: 4px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 233, 195, 0.75);
+  background: rgba(128, 21, 24, 0.72);
+  color: #ffe8bd;
+  font-size: 29px;
+  line-height: 1;
+  box-shadow: 0 5px 22px rgba(38, 4, 5, 0.34);
+  transform: rotate(2deg);
+}
+
+.welcome { margin: 2px 0 0; color: var(--ink-soft); font-size: 12px; letter-spacing: 0.24em; }
+.couple-block h1 { margin: 0; display: flex; align-items: center; justify-content: center; gap: 13px; font-size: clamp(30px, 8vw, 42px); font-weight: 400; letter-spacing: 0.14em; white-space: nowrap; }
+.couple-block h1 b { color: var(--gold); font-family: Georgia, "Times New Roman", serif; font-size: 19px; font-weight: 400; letter-spacing: 0; }
+.couple-block p { margin: 9px 0 0; color: var(--ink-soft); font-size: 12px; letter-spacing: 0.22em; }
+
+.date-block {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(100%, 350px);
+  padding: 11px 0;
+  border-top: 1px solid var(--gold-soft);
+  border-bottom: 1px solid var(--gold-soft);
+  color: var(--ink-soft);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+}
+
+.date-block strong {
+  padding: 0 18px;
+  border-right: 1px solid var(--gold-soft);
+  border-left: 1px solid var(--gold-soft);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 7vw, 34px);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.divider { display: flex; align-items: center; width: 145px; color: var(--gold); }
+.divider i { height: 1px; flex: 1; background: linear-gradient(to right, transparent, var(--gold-soft)); }
+.divider i:last-child { background: linear-gradient(to left, transparent, var(--gold-soft)); }
+.divider span { margin: 0 10px; font-size: 13px; }
+.invitation-copy { margin: 0 0 12px; font-size: 14px; letter-spacing: 0.12em; }
+.venue-label { margin: 0 0 5px; color: var(--gold); font-size: 10px; letter-spacing: 0.34em; }
+.venue-block address { font-size: clamp(16px, 4.5vw, 20px); font-style: normal; line-height: 1.65; letter-spacing: 0.1em; }
+.invitation-footer p { margin: 0 0 11px; color: var(--ink-soft); font-size: 11px; letter-spacing: 0.28em; }
+.slide-indicator { display: flex; justify-content: center; gap: 5px; }
+.slide-indicator span { width: 3px; height: 3px; border-radius: 999px; background: rgba(255, 248, 234, 0.36); transition: width 1s ease, background-color 1s ease; }
+.slide-indicator span.is-active { width: 15px; background: var(--gold); }
+
+@media (max-height: 700px) {
+  .invitation-content { padding-top: 24px; padding-bottom: 22px; }
+  .seal { width: 39px; height: 39px; font-size: 25px; }
+  .couple-block h1 { font-size: 28px; }
+  .date-block { padding: 7px 0; }
+  .date-block strong { font-size: 24px; }
+  .invitation-copy { margin-bottom: 7px; }
+  .venue-block address { font-size: 16px; line-height: 1.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-photo, .slide-indicator span { transition: none; }
+  .background-photo.is-active { transform: none; }
+}
