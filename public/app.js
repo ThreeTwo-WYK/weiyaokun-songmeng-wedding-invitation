@@ -6,7 +6,7 @@
   const musicToggle = document.querySelector("#music-toggle");
   const musicLabel = musicToggle.querySelector(".music-label");
   const lyricText = document.querySelector("#lyric-text");
-  const lyricUrl = "./music/hold-my-hand.lrc?v=20260820f";
+  const lyricUrl = "./music/hold-my-hand.lrc?v=20260821g";
   let active = 0;
   let timer;
   let pointerStart = null;
@@ -31,10 +31,6 @@
     { time: 188, text: "敬备喜宴 · 恭候光临" },
   ];
   let currentLyric = "Hold My Hand";
-  let audioContext;
-  let analyser;
-  let mediaSource;
-  let frequencyData;
   let visualFrame;
 
   const load = (image) => {
@@ -121,22 +117,6 @@
     }
   };
 
-  const connectVisualizer = async () => {
-    if (!window.AudioContext && !window.webkitAudioContext) return;
-    if (!audioContext) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      audioContext = new AudioContextClass();
-      analyser = audioContext.createAnalyser();
-      analyser.fftSize = 128;
-      analyser.smoothingTimeConstant = 0.76;
-      mediaSource = audioContext.createMediaElementSource(music);
-      mediaSource.connect(analyser);
-      analyser.connect(audioContext.destination);
-      frequencyData = new Uint8Array(analyser.frequencyBinCount);
-    }
-    if (audioContext.state === "suspended") await audioContext.resume();
-  };
-
   const animateLyric = () => {
     if (music.paused) {
       lyricText.style.setProperty("--lyric-spacing", "0.08em");
@@ -147,12 +127,7 @@
       return;
     }
 
-    let energy = 0.24 + Math.sin(music.currentTime * 3.2) * 0.08;
-    if (analyser && frequencyData) {
-      analyser.getByteFrequencyData(frequencyData);
-      const bass = frequencyData.slice(0, 14).reduce((sum, value) => sum + value, 0) / (14 * 255);
-      energy = Math.min(1, bass * 1.65);
-    }
+    const energy = 0.24 + Math.sin(music.currentTime * 3.2) * 0.08;
     lyricText.style.setProperty("--lyric-spacing", `${(0.08 + energy * 0.04).toFixed(3)}em`);
     lyricText.style.setProperty("--lyric-opacity", (0.78 + energy * 0.22).toFixed(3));
     lyricText.style.setProperty("--lyric-scale", (1 + energy * 0.06).toFixed(3));
@@ -167,7 +142,7 @@
     if (isPlaying && !visualFrame) visualFrame = window.requestAnimationFrame(animateLyric);
   };
 
-  const playMusic = async (enableVisualizer = false) => {
+  const playMusic = async () => {
     if (!trackAvailable) {
       musicToggle.classList.add("is-unavailable");
       musicToggle.title = "背景音乐暂不可用";
@@ -175,13 +150,6 @@
     }
     try {
       await music.play();
-      if (enableVisualizer) {
-        try {
-          await connectVisualizer();
-        } catch {
-          // Audio playback should continue even when Web Audio is restricted.
-        }
-      }
       return true;
     } catch {
       return false;
@@ -229,7 +197,7 @@
 
   musicToggle.addEventListener("click", async (event) => {
     event.stopPropagation();
-    if (music.paused) await playMusic(true);
+    if (music.paused) await playMusic();
     else music.pause();
   });
   music.addEventListener("play", () => updateMusicState(true));
@@ -241,7 +209,7 @@
     musicToggle.title = "背景音乐暂不可用";
   });
   document.addEventListener("pointerdown", (event) => {
-    if (!event.target.closest(".music-toggle")) playMusic(true);
+    if (!event.target.closest(".music-toggle") && music.paused) playMusic();
   }, { once: true, capture: true });
   document.addEventListener("WeixinJSBridgeReady", tryAutoplay, { once: true });
   window.addEventListener("load", tryAutoplay, { once: true });
