@@ -335,6 +335,15 @@ body {
   letter-spacing: 0.05em;
 }
 
+.date-detail small {
+  margin-top: 4px;
+  display: block;
+  color: #f1d79f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
 .divider { display: flex; align-items: center; width: min(78%, 330px); color: var(--gold); }
 .divider i { height: 1px; flex: 1; background: linear-gradient(to right, transparent, var(--gold-soft)); }
 .divider i:last-child { background: linear-gradient(to left, transparent, var(--gold-soft)); }

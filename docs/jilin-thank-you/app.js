@@ -8,7 +8,7 @@
   const lyricText = document.querySelector("#lyric-text");
   const openingScreen = document.querySelector("#opening-screen");
   const openingButton = document.querySelector("#opening-button");
-  const lyricUrl = "./music/hold-my-hand.lrc?v=20260821g";
+  const lyricUrl = "../music/hold-my-hand.lrc?v=20260821g";
   let active = 0;
   let timer;
   let pointerStart = null;
@@ -27,9 +27,9 @@
     { time: 104, text: "此生所愿，唯有你" },
     { time: 116, text: "爱有归期，幸福有声" },
     { time: 128, text: "执子之手，与子偕老" },
-    { time: 140, text: "我们结婚啦" },
-    { time: 152, text: "2026 · 10 · 03" },
-    { time: 164, text: "诚邀您见证幸福时刻" },
+    { time: 140, text: "喜宴相聚 · 欢聚如约" },
+    { time: 152, text: "2026 · 09 · 26　11:30" },
+    { time: 164, text: "诚邀您参加我们的喜宴" },
     { time: 176, text: "卫垚坤 ＆ 宋萌" },
     { time: 188, text: "敬备喜宴 · 恭候光临" },
   ];

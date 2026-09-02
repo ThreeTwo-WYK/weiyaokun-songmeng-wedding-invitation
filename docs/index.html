@@ -9,27 +9,55 @@
     <meta property="og:title" content="卫垚坤 &amp; 宋萌 · 婚礼请柬" />
     <meta property="og:description" content="良辰已定，佳期如约。2026年10月3日，敬备喜宴，恭候光临。" />
     <title>卫垚坤 &amp; 宋萌 · 婚礼请柬</title>
-    <link rel="preload" href="./photos/slide-01.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="preload" href="./photos/slide-02.webp?v=20260820" as="image" type="image/webp" />
+    <link rel="stylesheet" href="./style.css?v=20260823c" />
   </head>
   <body>
     <main class="wedding-page">
-      <section class="invitation" aria-label="卫垚坤与宋萌的婚礼请柬">
+      <section class="invitation" tabindex="0" aria-label="卫垚坤与宋萌的婚礼请柬，可左右滑动切换照片">
         <div class="photo-stage" aria-hidden="true">
-          <img class="background-photo is-active" src="./photos/slide-01.webp" alt="" style="object-position: 50% 45%" />
-          <img class="background-photo" src="./photos/slide-02.webp" alt="" style="object-position: 50% 43%" />
-          <img class="background-photo" data-src="./photos/slide-03.webp" alt="" style="object-position: 50% 38%" />
-          <img class="background-photo" data-src="./photos/slide-04.webp" alt="" style="object-position: 50% 45%" />
-          <img class="background-photo" data-src="./photos/slide-05.webp" alt="" style="object-position: 50% 42%" />
-          <img class="background-photo" data-src="./photos/slide-06.webp" alt="" style="object-position: 50% 38%" />
-          <img class="background-photo" data-src="./photos/slide-07.webp" alt="" style="object-position: 50% 45%" />
-          <img class="background-photo" data-src="./photos/slide-08.webp" alt="" style="object-position: 50% 43%" />
-          <img class="background-photo" data-src="./photos/slide-09.webp" alt="" style="object-position: 50% 43%" />
-          <img class="background-photo" data-src="./photos/slide-10.webp" alt="" style="object-position: 50% 42%" />
-          <img class="background-photo" data-src="./photos/slide-11.webp" alt="" style="object-position: 50% 45%" />
-          <img class="background-photo" data-src="./photos/slide-12.webp" alt="" style="object-position: 50% 40%" />
+          <img class="background-photo is-active" src="./photos/slide-02.webp?v=20260820" alt="" style="object-position: 50% 43%" />
+          <img class="background-photo" data-src="./photos/slide-03.webp?v=20260820" alt="" style="object-position: 50% 38%" />
+          <img class="background-photo" data-src="./photos/slide-04.webp?v=20260820" alt="" style="object-position: 50% 45%" />
+          <img class="background-photo" data-src="./photos/slide-05.webp?v=20260820" alt="" style="object-position: 50% 42%" />
+          <img class="background-photo" data-src="./photos/slide-06.webp?v=20260820" alt="" style="object-position: 50% 38%" />
+          <img class="background-photo" data-src="./photos/slide-07.webp?v=20260820" alt="" style="object-position: 50% 45%" />
+          <img class="background-photo" data-src="./photos/slide-08.webp?v=20260820" alt="" style="object-position: 50% 43%" />
+          <img class="background-photo" data-src="./photos/slide-09.webp?v=20260820" alt="" style="object-position: 50% 43%" />
+          <img class="background-photo" data-src="./photos/slide-10.webp?v=20260820" alt="" style="object-position: 50% 42%" />
+          <img class="background-photo" data-src="./photos/slide-11.webp?v=20260820" alt="" style="object-position: 50% 45%" />
+          <img class="background-photo" data-src="./photos/slide-12.webp?v=20260820" alt="" style="object-position: 50% 40%" />
+          <img class="background-photo" data-src="./photos/slide-13.webp?v=20260820" alt="" style="object-position: 50% 43%" />
+          <img class="background-photo" data-src="./photos/slide-14.webp?v=20260820" alt="" style="object-position: 50% 45%" />
+          <img class="background-photo" data-src="./photos/slide-15.webp?v=20260820" alt="" style="object-position: 50% 40%" />
+          <img class="background-photo" data-src="./photos/slide-16.webp?v=20260820" alt="" style="object-position: 50% 40%" />
+          <img class="background-photo" data-src="./photos/slide-17.webp?v=20260820" alt="" style="object-position: 50% 40%" />
           <div class="photo-veil"></div>
           <div class="paper-grain"></div>
+        </div>
+
+        <button class="music-toggle" id="music-toggle" type="button" aria-label="播放背景音乐" title="背景音乐">
+          <span class="music-icon" aria-hidden="true">♪</span>
+          <span class="music-label">音乐</span>
+        </button>
+        <audio
+          id="background-music"
+          src="./music/hold-my-hand.mp3?v=20260821g"
+          preload="auto"
+          loop
+          playsinline
+          webkit-playsinline
+          x5-playsinline
+        ></audio>
+
+        <div class="opening-screen" id="opening-screen">
+          <button class="opening-button" id="opening-button" type="button" aria-label="轻触开启卫垚坤与宋萌的婚礼请柬">
+            <span class="opening-eyebrow">WEDDING INVITATION</span>
+            <span class="opening-seal" aria-hidden="true">囍</span>
+            <span class="opening-names">卫垚坤 <i>＆</i> 宋萌</span>
+            <span class="opening-date">2026 · 10 · 03</span>
+            <span class="opening-action"><b>轻启喜帖</b><small>轻触屏幕 · 开启幸福时刻</small></span>
+          </button>
         </div>
 
         <div class="ornamental-frame" aria-hidden="true">
@@ -55,12 +83,23 @@
             <span>2026</span><strong>10 · 03</strong><span>星期六</span>
           </div>
 
-          <div class="divider" aria-hidden="true"><i></i><span>喜</span><i></i></div>
+          <div class="divider lyric-divider" aria-live="polite">
+            <i aria-hidden="true"></i><span class="lyric-text" id="lyric-text">Hold My Hand</span><i aria-hidden="true"></i>
+          </div>
 
           <div class="venue-block">
             <p class="invitation-copy">诚挚邀请您见证我们的幸福时刻</p>
             <p class="venue-label">婚礼地点</p>
-            <address>山西省临汾市襄汾县<br />赵康镇绍平村</address>
+            <a
+              class="venue-map-link"
+              href="https://surl.amap.com/j12HIUe3g3y"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="在高德地图中查看婚礼地点：山西省临汾市襄汾县赵康镇绍平村"
+            >
+              <address>山西省临汾市襄汾县<br />赵康镇绍平村</address>
+              <span class="map-action"><i aria-hidden="true">⌖</i> 导航到婚礼地点</span>
+            </a>
           </div>
 
           <footer class="invitation-footer">
@@ -69,11 +108,12 @@
               <span class="is-active"></span><span></span><span></span><span></span>
               <span></span><span></span><span></span><span></span>
               <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
             </div>
           </footer>
         </div>
       </section>
     </main>
-    <script src="./app.js" defer></script>
+    <script src="./app.js?v=20260823a" defer></script>
   </body>
 </html>
