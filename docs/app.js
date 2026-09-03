@@ -35,35 +35,100 @@
   ];
   let currentLyric = "Hold My Hand";
   let visualFrame;
+  let transitionRequest = 0;
 
-  const load = (image) => {
-    if (image.dataset.src) {
-      image.src = image.dataset.src;
-      delete image.dataset.src;
+  const load = (image) => new Promise((resolve) => {
+    const source = image.dataset.source;
+    if (!source) {
+      resolve(false);
+      return;
     }
+
+    if (image.getAttribute("src") === source && image.complete && image.naturalWidth > 0) {
+      if (typeof image.decode === "function") {
+        image.decode().then(() => resolve(true), () => resolve(true));
+      } else {
+        resolve(true);
+      }
+      return;
+    }
+
+    let settled = false;
+    const timeout = window.setTimeout(() => finish(false), 20000);
+
+    const cleanup = () => {
+      window.clearTimeout(timeout);
+      image.removeEventListener("load", onLoad);
+      image.removeEventListener("error", onError);
+    };
+
+    const finish = (loaded) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+
+      if (!loaded) {
+        resolve(false);
+        return;
+      }
+
+      if (typeof image.decode === "function") {
+        image.decode().then(() => resolve(true), () => resolve(true));
+      } else {
+        resolve(true);
+      }
+    };
+
+    const onLoad = () => finish(image.naturalWidth > 0);
+    const onError = () => finish(false);
+    image.addEventListener("load", onLoad);
+    image.addEventListener("error", onError);
+
+    if (image.getAttribute("src") !== source) image.src = source;
+  });
+
+  const releaseDistantSlides = () => {
+    const keep = new Set([
+      active,
+      (active + 1) % slides.length,
+      (active - 1 + slides.length) % slides.length,
+    ]);
+
+    slides.forEach((slide, index) => {
+      if (!keep.has(index)) slide.removeAttribute("src");
+    });
   };
 
-  const show = (index) => {
+  const show = async (index) => {
     const next = (index + slides.length) % slides.length;
-    if (next === active) return;
+    if (next === active) return true;
 
-    load(slides[next]);
-    load(slides[(next + 1) % slides.length]);
+    const request = ++transitionRequest;
+    const ready = await load(slides[next]);
+    if (!ready || request !== transitionRequest) return false;
+
     slides[active].classList.remove("is-active");
     indicators[active].classList.remove("is-active");
     slides[next].classList.add("is-active");
     indicators[next].classList.add("is-active");
     active = next;
+
+    void load(slides[(active + 1) % slides.length]);
+    window.setTimeout(releaseDistantSlides, 2200);
+    return true;
   };
 
   const restartTimer = () => {
-    window.clearInterval(timer);
-    timer = window.setInterval(() => show(active + 1), 5000);
+    window.clearTimeout(timer);
+    timer = window.setTimeout(async () => {
+      await show(active + 1);
+      restartTimer();
+    }, 5000);
   };
 
   const move = (offset) => {
-    show(active + offset);
-    restartTimer();
+    window.clearTimeout(timer);
+    void show(active + offset).finally(restartTimer);
   };
 
   const finishPointer = (event) => {
@@ -179,9 +244,11 @@
 
   slides.forEach((slide) => {
     slide.draggable = false;
+    slide.decoding = "async";
+    slide.dataset.source = slide.dataset.src || slide.getAttribute("src") || "";
   });
 
-  load(slides[1]);
+  void load(slides[1]);
 
   invitation.addEventListener("pointerdown", (event) => {
     if (event.target.closest(".opening-screen")) return;
